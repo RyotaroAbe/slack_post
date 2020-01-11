@@ -4,7 +4,33 @@ import os
 
 class slackPost:
     
+    """
+    Holds each attribute value and helper function to posting message to slack.
+
+    Attributes
+    ----------
+    user_name : str
+        User name displayed on slack.
+    
+    icon : str
+        Name of icon.
+        
+    icons : list
+        List of avairable icon name.
+        
+    channel : str
+        Name of channel.
+    """
+    
     def getChInfo(self):
+        
+        """
+        Parameters
+        ----------
+        CHs : dict
+             key : channel name
+             value : WebHookURL
+        """
         
         # get channel name and url
         CHs = {}
@@ -39,6 +65,16 @@ class slackPost:
         
     def addChannel(self,chName,url):
         
+        """
+        Parameters
+        ----------
+        chNames : str
+             arbitraly name to detect channel
+        
+        url : str
+             WebHookURL
+        """
+        
         # add channel url
         CHs = getChInfo()
         if not chName in CHs.keys():
@@ -46,6 +82,18 @@ class slackPost:
                 f.write(chName+' '+url)
 
     def post(self,message, mention=''):
+        
+        """
+        Parameters
+        ----------
+        message : str
+             message to post
+        
+        mention : str
+             channel -> @channel
+             everyone -> @everyone
+             here -> @here
+        """
         
         # post massage to slack
         
