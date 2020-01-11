@@ -34,7 +34,11 @@ class slackPost:
         
         # get channel name and url
         CHs = {}
-        with open('./.setting','r') as f:
+        
+        libdir = os.path.dirname(__file__)
+        stgFilePath = libdir + '/.setting'
+        
+        with open(stgFilePath,'r') as f:
             for line in f:
                 args = line.split(' ')
                 ch = args[0]
@@ -58,10 +62,13 @@ class slackPost:
         
         # set icon name list
         icons = []
-        with open('./.emoji','r') as f:
-            for icon in f:
-                icons.append(icon.split('\n')[0])
-        self.icons =  icons
+        libdir = os.path.dirname(__file__)
+        emojiFilePath = libdir + '/.emoji'
+        if os.path.exists(emojiFilePath):
+            with open(emojiFilePath,'r') as f:
+                for icon in f:
+                    icons.append(icon.split('\n')[0])
+            self.icons =  icons
         
     def addChannel(self,chName,url):
         
@@ -76,9 +83,13 @@ class slackPost:
         """
         
         # add channel url
-        CHs = getChInfo()
+        CHs = self.getChInfo()
+        
+        libdir = os.path.dirname(__file__)
+        stgFilePath = libdir + '/.setting'
+        
         if not chName in CHs.keys():
-            with open('./.setting','a') as f:
+            with open(stgFilePath,'a') as f:
                 f.write(chName+' '+url)
 
     def post(self,message, mention=''):
